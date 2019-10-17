@@ -1,0 +1,157 @@
+// 媒体查询
+@media screen and (max-width:320px){
+    html{
+        font-size: 30.5px!important;
+    }
+}
+@media screen and (min-width:750px){
+    html{
+        font-size: 73.5px!important;
+    }
+}
+// 清除默认样式
+a{
+    text-decoration: none;
+}
+i{
+    font-style: normal;
+}
+// 版心
+.w{
+    width: 750/75rem;
+    margin: 0 auto;
+}
+// 返回栏
+.fanghui{
+    height: 30/75rem;
+    margin-top: 70/75rem;
+    padding-bottom: 30/75rem;
+    border-bottom: 1/75rem solid #ccc;
+    .xiaoXi{
+        float: left;
+        font-size: 30/75rem;
+        line-height: 30/75rem;
+        img{
+            height: 30/75rem;
+            vertical-align: middle;
+            margin-left: 25/75rem;
+        }
+        span{
+            margin: 0 20/75rem;
+        }
+    }
+    .gengDuo{
+       float: right;
+       position: relative;
+       margin-right: 30/75rem;
+       height: 30/75rem;
+        line-height: 30/75rem;
+        img{
+            width: 40/75rem;
+        }
+        .muen{
+            display: none;
+        }
+        // 点击更多出现选项
+        .active{
+            display: block;
+            position: absolute;
+            list-style: none;
+            width: 100/75rem;
+            right: -28/75rem;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 10px 10px;
+            margin: 0;
+            background-color: rgb(153, 150, 150);
+            li{
+                color: #fff;
+                font-size: 18/75rem;
+                text-align: center;
+                height: 30/75rem;
+                line-height: 30/75rem;
+                border-bottom: 1px solid rgb(70, 69, 69);
+            }
+        }
+    }
+}
+
+// 动态消息
+.dongTai{
+    // 店铺消息特有
+    .nameShop{
+        font-size: 30/75rem;
+        line-height: 50/75rem;
+        text-indent: 20/75rem;
+    }
+    // 处理每个消息模块的底边分割
+    border-bottom: 20/75rem solid #ccc;
+    &:last-child{
+        border: none;
+    }
+    // 单条数据样式
+    .danTiao{
+        display: flex;
+        height: 140/75rem;
+        border-bottom: 1/75rem solid #ccc;
+        // 图片样式
+        .picture{
+            flex: 2;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            img{
+                width: 90/75rem;
+            }
+            i{
+                position: absolute;
+                top: 10/75rem;
+                right: 15/75rem;
+                height: 30/75rem;
+                width: 30/75rem;
+                background-color: red;
+                color: #fff;
+                border-radius: 50%;
+                font-size: 25/75rem;
+                text-align: center;
+                line-height: 30/75rem;
+            }
+            .iNone{
+                display: none;
+            }
+        }
+        &:last-child{
+            border-bottom: none;
+        }
+        // 内容样式
+        .inner{
+            flex: 8;
+            .top{
+                height: 80/75rem;
+                line-height: 80/75rem;
+                span{
+                    margin-top: -5/75rem;
+                    margin-left: 20/75rem;
+                    font-size: 30/75rem;
+                    font-weight: bold;
+                }
+                i{
+                    float: right;
+                    margin-top: -10/75rem;
+                    font-size: 16/75rem;
+                }
+            }
+            .bottom{
+                width: 580/75rem;
+                margin-left: 20/75rem;
+                font-size: 27/75rem;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+        }
+    }
+   
+
+}

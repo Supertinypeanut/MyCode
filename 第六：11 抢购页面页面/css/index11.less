@@ -1,0 +1,243 @@
+// 媒体查询
+@media screen and (max-width:320px){
+    html{
+        font-size: 30.5px!important;
+    }
+}
+@media screen and (min-width:750px){
+    html{
+        font-size: 73.5px!important;
+    }
+}
+// 清除默认样式
+a{
+    text-decoration: none;
+}
+i{
+    font-style: normal;
+}
+ul{
+    list-style: none;
+}
+body{
+    background: url("../imgs/bg_11.jpg") no-repeat top;
+    background-attachment: fixed;
+    background-size: 750/75rem 420/75rem;
+    background-color: #ccc;
+    // overflow: hidden;
+}
+// 版心
+.w{
+    width: 750/75rem;
+    height: 420/75rem;
+    margin: 0 auto;
+    // 秒杀模块返回栏
+    .top{
+        position: fixed;
+        color: #fff;
+        overflow: hidden;
+        background: url("../imgs/bg_11.jpg") no-repeat top;
+        background-size: cover;
+        .miaoSha{
+            margin-top: 75/75rem;
+            height: 30/75rem;
+            line-height: 30/75rem;
+            text-align: center;
+            font-size: 30/75rem;
+            font-weight: bold;
+            a{
+                float: left;
+                background: url("../imgs/left.png") no-repeat center;
+                background-size: contain;
+                height: 30/75rem;
+                width: 30/75rem;
+                margin: 5/75rem 40/75rem;
+            }
+            // 搜索模块
+            .search{
+                position: relative;
+                float: right;
+                width: 30/75rem;
+                height: 30/75rem;
+                margin-right: 40/75rem;
+                background: url("../imgs/search.png") no-repeat center;
+                background-size: contain;
+                .input{
+                    // display: none;
+                    visibility: hidden;
+                    position: absolute;
+                    top: -4px;
+                    right: 65px;
+                    height: 45px;
+                    line-height: 45px;
+                    border-radius: 15px;
+                    width: 0;
+                    background-color: #fff;
+                    text-align: center;
+                    transition: all 1s cubic-bezier(0, 0.51, 0.25, 1);
+                    box-sizing: border-box;
+                    // padding-right: 102px;
+                    overflow: hidden;
+                    input{
+                        font-size: 20px;
+                        border: none;
+                        height: 30px;
+                        background-color: #fff;
+                        padding: 0;
+                        outline: none;
+                    }
+                    input[type="text"]{
+                        // display: block;
+                        float: left;
+                        color: rgb(230, 138, 18);
+                        text-indent: 20px;
+                        width: 424px;
+                        height: 45px;
+                        line-height: 45px;
+                    }
+                    input[type="button"]{
+                        // position: absolute;
+                        float: right;
+                        width: 100px;
+                        // right: 0;
+                        margin-top: 10px;
+                        height: 25px;
+                        border-left: 2px solid #ccc;
+                        color: #df5b09;
+                    }
+                }
+                .souSuo{
+                    visibility: visible;
+                    width: 530px;
+                }
+            }
+        }
+    // 时间模块
+    .time{
+        display: flex;
+        height: 70/75rem;
+        width: 750/75rem;
+        align-content: space-around;
+        padding-left: 0;
+        margin-top: 30/75rem;
+        li{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #ccc;
+            .beginTime{
+                font-size: 30/75rem;
+            }
+            .word{
+                margin-top: 15/75rem;
+                font-size: 20/75rem;
+            }
+        }
+        .active{
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+    }
+}
+//   内容模块，秒杀列表
+    .content{
+        display: none;
+        margin-top: -160/75rem;
+        // 秒杀成员
+        .element{
+            display: flex;
+            height: 250/75rem;
+            margin: 0 20/75rem 10/75rem;
+            background-color: #fff;
+            border-radius: 15/75rem;
+            .picture{
+                flex: 3;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                img{
+                    width: 167/75rem;
+                    height: 157/75rem;
+                }
+            }
+            .inner{
+                flex: 7;
+                display: flex;
+                flex-direction: column;
+                // 标题
+                .biaoTi{
+                    font-size: 20/75rem;
+                    font-weight: bold;
+                    margin-top: 40/75rem;
+                    color: black;
+                }
+                // 描述
+                .miaoSu{
+                    font-size: 16/75rem;
+                    color: #ccc;
+                    margin: 20/75rem 0;
+                }
+                //进度条
+                .jinDu{
+                    height: 20/75rem;
+                    line-height: 20/75rem;
+                    margin-bottom: 15/75rem;
+                    .progress {
+                        width: 275/75rem;
+                        height: 20/75rem;
+                        float: left;
+                        .pro-bar-container.color-pumpkin{
+                            height: 20/75rem;
+                            .pro-bar.bar-40.color-carrot{
+                                height: 20/75rem;
+                            }
+                        }
+                    }
+                    .num{
+                        margin-left: 20/75rem;
+                        vertical-align: top;
+                        font-size: 16/75rem;
+                        color: rgb(236, 121, 14);
+                    }
+                }
+                // 立即抢购
+                .qiangGou{
+                    color: rgb(235, 94, 13);
+                    .jiage{
+                        float: left;
+                        margin-top: 15/75rem;
+                        font-size: 20/75rem;
+                        height: 45/75rem;
+                        i{
+                            font-size: 30/75rem;
+                        }
+                    }
+                    .btn{
+                        float: right;
+                        box-sizing: border-box;
+                        font-size: 16/75rem;
+                        padding: 4/75rem 20/75rem;
+                        border: 2/75rem solid #df5b09;
+                        text-align: center;
+                        line-height: 43/75rem;
+                        border-radius: 22.5/75rem;
+                        margin-right: 20/75rem;
+                        margin-top: 15/75rem;
+                        transition: all 1s;
+                    }
+                    .checked{
+                        background-color: #ccc;
+                        border-color: rgb(182, 174, 174);
+                        color: #fff;
+                        margin-right: 28/75rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .content.active{
+        display: block;
+    }

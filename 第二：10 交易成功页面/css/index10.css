@@ -1,0 +1,91 @@
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 30.5px!important;
+  }
+}
+@media screen and (min-width: 750px) {
+  html {
+    font-size: 73.5px!important;
+  }
+}
+.w {
+  width: 10.20408163rem;
+  margin: 0 auto;
+}
+.top {
+  position: relative;
+  height: 7.37414966rem;
+  background: url("../imgs/11-支付成功界面移动端app界面_01.png") no-repeat center;
+  background-size: contain;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+}
+.top .inner-top {
+  font-size: 0.34013605rem;
+  margin-top: 0.81632653rem;
+  height: 0.34013605rem;
+  line-height: 0.34013605rem;
+}
+.top .inner-top a {
+  float: left;
+  margin-left: 0.34013605rem;
+  height: 0.27210884rem;
+  width: 0.27210884rem;
+  background: url("../imgs/11-支付成功界面移动端app界面_04.png") no-repeat center;
+  background-size: contain;
+}
+.top .inner-mid {
+  margin-top: 1.08843537rem;
+}
+.top .inner-mid p {
+  font-size: 0.40816327rem;
+}
+.top .inner-mid span {
+  margin-top: 0.40816327rem;
+  font-size: 0.27210884rem;
+}
+.top .inner-btm {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 1.49659864rem);
+  width: 1.63265306rem;
+  height: 1.63265306rem;
+  border: 0.13605442rem solid #e7a23b;
+  border-radius: 50%;
+  background: url("../imgs/11-支付成功界面移动端app界面.png") no-repeat center;
+  background-size: 70%;
+}
+.mid {
+  width: 8.16326531rem;
+  margin: 0 auto;
+}
+.mid div {
+  border-bottom: 0.01360544rem solid #ccc;
+  height: 1.02040816rem;
+  line-height: 1.02040816rem;
+  font-size: 0.27210884rem;
+}
+.mid div .left {
+  float: left;
+  margin-left: 0.27210884rem;
+  color: black;
+}
+.mid div .right {
+  float: right;
+  margin-right: 0.27210884rem;
+  color: #e9cb1f;
+}
+.btm {
+  display: block;
+  width: 8.68027211rem;
+  height: 1.2244898rem;
+  line-height: 1.2244898rem;
+  text-align: center;
+  font-size: 0.40816327rem;
+  background-color: #f7ac2c;
+  margin: 4.76190476rem auto 0.95238095rem;
+  border-radius: 0.06802721rem;
+  color: #fff;
+  text-decoration: none;
+}

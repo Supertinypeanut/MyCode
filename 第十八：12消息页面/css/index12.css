@@ -1,0 +1,143 @@
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 30.5px!important;
+  }
+}
+@media screen and (min-width: 750px) {
+  html {
+    font-size: 73.5px!important;
+  }
+}
+a {
+  text-decoration: none;
+}
+i {
+  font-style: normal;
+}
+.w {
+  width: 10rem;
+  margin: 0 auto;
+}
+.fanghui {
+  height: 0.4rem;
+  margin-top: 0.93333333rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 0.01333333rem solid #ccc;
+}
+.fanghui .xiaoXi {
+  float: left;
+  font-size: 0.4rem;
+  line-height: 0.4rem;
+}
+.fanghui .xiaoXi img {
+  height: 0.4rem;
+  vertical-align: middle;
+  margin-left: 0.33333333rem;
+}
+.fanghui .xiaoXi span {
+  margin: 0 0.26666667rem;
+}
+.fanghui .gengDuo {
+  float: right;
+  position: relative;
+  margin-right: 0.4rem;
+  height: 0.4rem;
+  line-height: 0.4rem;
+}
+.fanghui .gengDuo img {
+  width: 0.53333333rem;
+}
+.fanghui .gengDuo .muen {
+  display: none;
+}
+.fanghui .gengDuo .active {
+  display: block;
+  position: absolute;
+  list-style: none;
+  width: 1.33333333rem;
+  right: -0.37333333rem;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 10px 10px;
+  margin: 0;
+  background-color: #999696;
+}
+.fanghui .gengDuo .active li {
+  color: #fff;
+  font-size: 0.24rem;
+  text-align: center;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  border-bottom: 1px solid #464545;
+}
+.dongTai {
+  border-bottom: 0.26666667rem solid #ccc;
+}
+.dongTai .nameShop {
+  font-size: 0.4rem;
+  line-height: 0.66666667rem;
+  text-indent: 0.26666667rem;
+}
+.dongTai:last-child {
+  border: none;
+}
+.dongTai .danTiao {
+  display: flex;
+  height: 1.86666667rem;
+  border-bottom: 0.01333333rem solid #ccc;
+}
+.dongTai .danTiao .picture {
+  flex: 2;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dongTai .danTiao .picture img {
+  width: 1.2rem;
+}
+.dongTai .danTiao .picture i {
+  position: absolute;
+  top: 0.13333333rem;
+  right: 0.2rem;
+  height: 0.4rem;
+  width: 0.4rem;
+  background-color: red;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.33333333rem;
+  text-align: center;
+  line-height: 0.4rem;
+}
+.dongTai .danTiao .picture .iNone {
+  display: none;
+}
+.dongTai .danTiao:last-child {
+  border-bottom: none;
+}
+.dongTai .danTiao .inner {
+  flex: 8;
+}
+.dongTai .danTiao .inner .top {
+  height: 1.06666667rem;
+  line-height: 1.06666667rem;
+}
+.dongTai .danTiao .inner .top span {
+  margin-top: -0.06666667rem;
+  margin-left: 0.26666667rem;
+  font-size: 0.4rem;
+  font-weight: bold;
+}
+.dongTai .danTiao .inner .top i {
+  float: right;
+  margin-top: -0.13333333rem;
+  font-size: 0.21333333rem;
+}
+.dongTai .danTiao .inner .bottom {
+  width: 7.73333333rem;
+  margin-left: 0.26666667rem;
+  font-size: 0.36rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
