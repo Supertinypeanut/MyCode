@@ -1,0 +1,105 @@
+@media screen and (min-width: 750px){
+    html{
+        font-size: 75px!important;
+    }
+}
+@media screen and (max-width: 320px){
+    html{
+        font-size: 32px!important;
+    }
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    width: 750/75rem;
+    margin: 0 auto;
+    background-color: #ccc;
+    header{
+        height: 80/75rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 38/75rem;
+        background-color: #fff;
+    }
+    section{
+        margin-top: 20/75rem;
+        .item{
+            display: flex;
+            height: 220/75rem;
+            background-color: #fff;
+            justify-content: space-evenly;
+            align-items: center;
+            margin-top: 20/75rem;
+            .content{
+                width: 420/75rem;
+                display: flex;
+                height: 180/75rem;
+                flex-direction: column;
+                justify-content: space-between;
+                font-size: 24/75rem;
+                .mark{
+                    display: flex;
+                    justify-content: space-between; 
+                    font-size: 16/75rem;   
+                    color: #ccc;
+                    .msg{
+                        .bgIcons{
+                            display: inline-block;
+                            height: 25/75rem;
+                            width: 25/75rem;
+                            margin-right: 5/75rem;
+                            background: url('../img/icons.png') no-repeat 0 -225/75rem;
+                            background-size: 150/75rem 350/75rem;
+                        }
+                    }                
+                }
+            }
+            img{
+                // flex: 25%;
+                width: 240/75rem;
+                height: 180/75rem;
+            }
+            &:last-child{
+                margin-bottom: 120/75rem;
+            }
+        }
+    }
+    footer{
+        position: fixed;
+        width: 750/75rem;
+        height: 100/75rem;
+        bottom: 0;
+        display: flex;
+        justify-content: space-around;
+        background-color: #666;
+        font-size: 20/75rem;
+        span{
+            display: flex;
+            flex-direction: column;
+            // background-color: #fff;
+            align-items: center;
+            color: #fff;
+            .Icons{
+                margin-top: 10/75rem;
+                width: 50/75rem;
+                height: 50/75rem;
+                background: url('../img/icons.png') no-repeat;
+                background-size: 200/75rem 600/75rem;
+            }
+        }
+        .news .Icons{
+            background-position-y:0;
+        }
+        .short .Icons{
+            background-position-y:-100/75rem;
+        }
+        .user .Icons{
+            background-position-y:-200/75rem;
+        }
+    }
+}

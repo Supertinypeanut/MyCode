@@ -1,0 +1,99 @@
+@media screen and (min-width: 750px) {
+  html {
+    font-size: 75px!important;
+  }
+}
+@media screen and (max-width: 320px) {
+  html {
+    font-size: 32px!important;
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  width: 10rem;
+  margin: 0 auto;
+  background-color: #ccc;
+}
+body header {
+  height: 1.06666667rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.50666667rem;
+  background-color: #fff;
+}
+body section {
+  margin-top: 0.26666667rem;
+}
+body section .item {
+  display: flex;
+  height: 2.93333333rem;
+  background-color: #fff;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 0.26666667rem;
+}
+body section .item .content {
+  width: 5.6rem;
+  display: flex;
+  height: 2.4rem;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.32rem;
+}
+body section .item .content .mark {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.21333333rem;
+  color: #ccc;
+}
+body section .item .content .mark .msg .bgIcons {
+  display: inline-block;
+  height: 0.33333333rem;
+  width: 0.33333333rem;
+  margin-right: 0.06666667rem;
+  background: url('../img/icons.png') no-repeat 0 -3rem;
+  background-size: 2rem 4.66666667rem;
+}
+body section .item img {
+  width: 3.2rem;
+  height: 2.4rem;
+}
+body section .item:last-child {
+  margin-bottom: 1.6rem;
+}
+body footer {
+  position: fixed;
+  width: 10rem;
+  height: 1.33333333rem;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  background-color: #666;
+  font-size: 0.26666667rem;
+}
+body footer span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+}
+body footer span .Icons {
+  margin-top: 0.13333333rem;
+  width: 0.66666667rem;
+  height: 0.66666667rem;
+  background: url('../img/icons.png') no-repeat;
+  background-size: 2.66666667rem 8rem;
+}
+body footer .news .Icons {
+  background-position-y: 0;
+}
+body footer .short .Icons {
+  background-position-y: -1.33333333rem;
+}
+body footer .user .Icons {
+  background-position-y: -2.66666667rem;
+}
