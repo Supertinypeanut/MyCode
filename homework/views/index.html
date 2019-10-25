@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./lib/layui/css/layui.css" />
+    <style>
+      body {
+        background-color: skyblue;
+      }
+      .center {
+        text-align: center;
+        margin: 1em 0;
+      }
+      .layui-table .layui-btn {
+        margin: 0;
+      }
+      .layui-col-xs1 {
+        width: 10%;
+      }
+      .layui-layer-content {
+        color: #000;
+      }
+    </style>
+  </head>
+  <body class="layui-bg-cyan">
+    <header class="layui-container">
+      <div class="layui-row">
+        <h1 class="layui-col-xs12 center">来了，老弟，交作业啦！！！</h1>
+      </div>
+    </header>
+    <main class="layui-main">
+      <h2 class="center">未交作业名单</h2>
+      <table class="layui-table">
+        <tbody>
+          <tr class="layui-row" id="unhanded">
+            <!-- <td
+              data-method="offset"
+              data-type="auto"
+              class="layui-col-xs1 layui-btn"
+            >
+              贤心
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </main>
+    <main class="layui-main handed">
+      <h2 class="center">已交作业名单</h2>
+      <table class="layui-table">
+        <tbody>
+          <tr class="layui-row" id="handed">
+            <!-- <td
+              data-method="offset"
+              data-type="auto"
+              class="layui-col-xs1 layui-btn layui-btn-normal"
+            >
+              贤心
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </main>
+    <script src="./lib/layui/layui.js"></script>
+    <script src="./lib/jquery/jquery-1.12.4.min.js"></script>
+    <script src="./lib/art-template/template.js"></script>
+    <script id="tpl" type="text/html">
+      {{each}}
+        <td data-method="offset"
+        data-type="auto"
+        class="layui-col-xs1 layui-btn layui-btn-normal">{{$value}}</td>
+      {{/each}}
+    </script>
+    <script>
+      $(function() {
+        render();
+      });
+      // 渲染页面
+      function render() {
+        $.get({
+          url: "getList",
+          success: function(res) {
+            const unhandedList = template("tpl", res.unhandedList);
+            $("#unhanded").html(unhandedList);
+            const handedList = template("tpl", res.handedList);
+            $("#handed").html(handedList);
+          }
+        });
+      }
+
+      layui.use("upload", function() {
+        var $ = layui.jquery;
+        var upload = layui.upload;
+        var layer = layui.layer;
+        upload.render({
+          elem: ".layui-btn",
+          url: "upload",
+          accept: "file",
+          exts: "zip|rar|7z",
+          done: function(res) {
+            //如果上传失败
+            if (res.code > 0) {
+              layer.alert(res.msg, {
+                skin: "layui-layer-molv", //样式类名
+                closeBtn: 1, // 是否显示关闭按钮
+                anim: 1, //动画类型
+                btn: ["奇葩"], //按钮
+                icon: 5 // icon
+              });
+            } else {
+              layer.alert(res.msg, {
+                skin: "layui-layer-molv", //样式类名
+                closeBtn: 1, // 是否显示关闭按钮
+                anim: 1, //动画类型
+                btn: ["棒棒哒"], //按钮
+                icon: 6 // icon
+              });
+              render();
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
