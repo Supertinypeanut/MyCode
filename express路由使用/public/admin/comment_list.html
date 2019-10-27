@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>评论列表</title>
+  <link rel="stylesheet" href="./libs/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/iconfont.css">
+  <link rel="stylesheet" href="css/main.css">
+  <script src="./libs/jquery-1.12.4.min.js"></script>
+  <script src="./libs/template-web.js"></script>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="common_title">
+      评论列表
+    </div>
+    <div class="container-fluid common_con">
+      <table class="table table-striped table-bordered table-hover mp20">
+        <thead>
+          <tr>
+            <th>作者</th>
+            <th>评论</th>
+            <th>评论在</th>
+            <th>提交于</th>
+            <th>状态</th>
+            <th class="text-center" width="100">操作</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="row text-center">
+        <ul id="pagination" class="pagination-sm"></ul>
+      </div>
+
+    </div>
+  </div>
+</body>
+<!-- 模版引擎 -->
+<script type="text/html" id="text">
+  {{ each data}} {{if $value.state == '待审核' }}
+  <tr class="danger">
+    <td>{{$value.author}}</td>
+    <td>{{$value.content}}</td>
+    <td>{{$value.title}}</td>
+    <td>{{$value.time}}</td>
+    <td>{{$value.state}}</td>
+    <td class="text-center" data-id="{{$value.id}}">
+      <a href="javascript:void(0);;" class="btn btn-info btn-xs">批准</a>
+      <a href="javascript:void(0);;" class="btn btn-danger btn-xs">删除</a>
+    </td>
+  </tr>
+  {{ else }}
+  <tr>
+    <td>{{$value.author}}</td>
+    <td>{{$value.content}}</td>
+    <td>{{$value.title}}</td>
+    <td>{{$value.time}}</td>
+    <td>{{$value.state}}</td>
+    <td class="text-center" data-id="{{$value.id}}">
+      <a href="javascript:void(0);;" class="btn btn-warning btn-xs">拒绝</a>
+      <a href="javascript:void(0);;" class="btn btn-danger btn-xs">删除</a>
+    </td>
+  </tr>
+  {{ /if }} {{ /each }}
+</script>
+<!-- 分页插件引入 -->
+<script src="./libs/jquery.twbsPagination.js"></script>
+<script>
+  $(function() {
+    //获取所有评论数据
+    dataList();
+
+
+    // -----------------批准，删除，拒绝评论功能与请求基本一致，不同的是请求地址-----------------
+    //  因为数据是后面渲染的，如果直接绑定的话，没有DOM节点可以绑定上，所以得使用事件委托
+    $('tbody').on('click', '.btn-info,.btn-danger,.btn-warning', function(event) {
+      // event.preventDefault();
+      // 获取该条评论id
+      const id = $(this).parent().data('id');
+      console.log(id);
+      //设置URL变量
+      let url = '';
+      // 批准按钮判断
+      if ($(this).text() == '批准') {
+        url = BigNew.comment_pass;
+        // 删除按钮判断
+      } else if ($(this).text() == '删除') {
+        url = BigNew.comment_delete;
+        // 拒绝按钮
+      } else {
+        url = BigNew.comment_reject;
+      }
+      // console.log(url);
+      $.ajax({
+        type: 'post',
+        url,
+        data: {
+          id
+        },
+        success(data) {
+          console.log(data);
+          alert(data.msg);
+          // 刷新页面
+          dataList();
+          // location.reload();
+        }
+      });
+
+    });
+
+    // *********************获取所有评论数据**************
+    function dataList() {
+      $.ajax({
+        type: 'get',
+        url: BigNew.comment_list,
+        data: {
+          perpage: 10
+        },
+        success(data) {
+          console.log(data);
+
+          // ------调用页面渲染
+          dataUp(data);
+
+          $('#pagination').twbsPagination({
+            // 设置分页总页数
+            totalPages: data.data.totalPage,
+            visiblePages: 7,
+            // first的内容
+            first: "首页",
+            prev: "上一页",
+            next: "下一页",
+            last: "尾页",
+            onPageClick: function(event, page) {
+              // $('#page-content').text('Page ' + page);
+
+              // console.log(page);
+              // 当点击几页在发送请求
+              $.ajax({
+                type: 'get',
+                url: BigNew.comment_list,
+                data: {
+                  page,
+                  perpage: 10
+                },
+                success(data) {
+                  // ------调用页面渲染
+                  dataUp(data);
+
+                }
+              })
+
+            }
+          });
+        }
+      });
+
+    }
+
+
+    // *************************数据渲染函数*****************
+    function dataUp(data) {
+      // 调用模版引擎,获取页面HTML文本
+      let text = template('text', data.data);
+      //  渲染页面
+      $('tbody').html(text);
+    }
+
+  })
+</script>
+
+</html>
