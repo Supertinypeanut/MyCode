@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="button" class="get" value="get">
+  <input type="button" class="post" value="post">
+</body>
+<script src="./jQuery.min.js"></script>
+<script>
+  $(function() {
+    // 绑定get按钮，注册get请求
+    $('.get').click((event) => {
+      $.ajax({
+        type: 'get',
+        url: 'http://localhost:10086/get',
+        data: {
+          test: '测试',
+          num: 12
+        },
+        dataType: 'jsonp',
+        success: function(data) {
+          console.log(data);
+        }
+      })
+    });
+    // 绑定post按钮，注册post请求  --jsonp不支持post请求，因为是靠script标签的src属性，传数据，所以只有在服务器端设置允许跨域请求，才可以post CORS（ response.header('Access-Control-Allow-Origin', '*')）
+    $('.post').click((event) => {
+      $.post({
+        type: 'post',
+        url: 'http://localhost:10086/post',
+        data: {
+          test: '测试',
+          num: 12
+        },
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+        }
+      })
+    });
+  })
+</script>
+
+</html>

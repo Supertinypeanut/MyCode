@@ -19,7 +19,7 @@ const server = http.createServer((request, response) => {
       //   响应静态资源
       response.end(data);
     } else {
-      // 如果不页面回页面，直接返回数据，需要设置响应内容头部content-type
+      // 如果页面没有设置编码，直接返回数据，需要设置响应内容头部content-type
       // response.setHeader('content-type','text/html;charset=utf-8');
       //   获取404页面路径
       URL = path.join(__dirname, './public/404.html');

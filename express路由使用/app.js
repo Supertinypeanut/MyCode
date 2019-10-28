@@ -23,7 +23,9 @@ app.use(express.static('public'));
 // get路由
 app.get('/port/get', (request, response) => {
 
-  response.send('一条优雅风趣的笑话！！');
+  response.jsonp({ name: 'jack' });
+  // console.log(request.query);
+
 });
 
 app.get('/randomJoke', (request, response) => {
