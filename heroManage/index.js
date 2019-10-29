@@ -1,13 +1,24 @@
+const path = require('path');
 // ---------------------导包
 const express = require('express')
   // 数据库
 const mysql = require('mysql')
 const hm = require('mysql-ithm')
 
+// 中间件
+//  可以解析post数据
+const bodyParser = require('body-parser')
+  // 解析上传文件
+const fileUpload = require('express-fileupload');
+
 
 // -------------------创建服务
 const app = express()
 
+// parse application/x-www-form-urlencoded 
+app.use(bodyParser.urlencoded({ extended: false }))
+  // default options
+app.use(fileUpload());
 
 // -------------------创建数据库
 //2.连接数据库
@@ -31,32 +42,159 @@ let studentModel = hm.model('student', {
   icon: String
 });
 
-// //4.调用API：添加数据
-// studentModel.insert({ name: '张三10', age: 30 }, (err, results) => {
-//   console.log(err);
-//   console.log(results);
-//   if (!err) console.log('增加成功');
-// });
-
 
 
 // 创建路由
+
+// ---------------------查询英雄列表 list
+app.get('/hero/list', (request, response) => {
+  //   response.send('list');
+  //查询所有数据
+  studentModel.find((err, results) => {
+    if (!err) {
+      response.send({
+        heros: results,
+        msg: '查询成功',
+        code: 201
+      });
+    } else {
+      response.send({
+          code: 500,
+          msg: '服务器内部错误'
+        })
+        //   console.log(err);
+    }
+  });
+
+});
+// ---------------------查询英雄详情 info
+app.get('/hero/info', (request, response) => {
+  //   response.send('info');
+  // 根据id查询数据
+  studentModel.find(`id=${request.query.id}`, (err, results) => {
+    if (!err) {
+      // 判断id是否有数据
+      if (results.length == 0) {
+        response.send({ msg: 'id不存在，请查看代码' });
+      } else {
+        response.send({
+          // 因为返回结果是数组，但是我们id是精确查询，只需要一个，所以将其获取第一个
+          data: results[0]
+        });
+      }
+    } else {
+      if (!request.query.id) {
+        response.send({
+          msg: '没传参数id'
+        });
+      } else {
+        response.send({
+          code: 500,
+          msg: '服务器内部错误'
+        });
+      }
+
+    }
+
+  });
+
+});
+
+
 // 数据增加 insert
-app.get('/hero/insert', (request, response) => {
-  response.send('insert');
+app.post('/hero/insert', (request, response) => {
+  // 可以获取请求体信息
+  //   console.log(request.body);
+  //   获取上传文件信息
+  //   console.log(request.files);
+
+  //   文件名
+  const icon = request.files.icon.name;
+  // 存放路径
+  const url = path.join(__dirname, './upload/', icon);
+  //获取名字和技能
+  const { name, skill } = request.body;
+  request.files.icon.mv(url, err => {
+    if (!err) {
+      console.log('上传成功');
+      studentModel.insert({ name, skill, icon }, (err, results) => {
+        if (!err) {
+          response.send({
+            code: 200,
+            msg: '增加成功'
+          });
+        } else {
+          response.send({
+            code: 500,
+            msg: '服务器内部错误，数据库错误'
+          });
+        }
+      });
+
+    } else {
+      console.log('上传失败');
+      response.send({
+        code: 500,
+        msg: '服务器内部错误，文件移动错误'
+      });
+    }
+  })
+
 });
 // 数据删除 delete
-app.get('/hero/delete', (request, response) => {
-  response.send('delete');
+app.post('/hero/delete', (request, response) => {
+  if (request.body.id) {
+    //4.1 删除 数据
+    studentModel.delete(`id=${request.body.id}`, (err, results) => {
+      if (!err) {
+        response.send({
+          msg: '删除成功'
+        });
+      } else {
+        response.send({
+          code: 500,
+          msg: '服务器内部错误，数据库错误'
+        });
+      }
+    });
+  } else {
+    response.send({
+      msg: '参数错误，请写id参数'
+    });
+  }
 });
 // 数据更改 updata
-app.get('/hero/updata', (request, response) => {
-  response.send('updata');
+app.post('/hero/updata', (request, response) => {
+  // 获取获取参数
+  const { id, name, skill } = request.body;
+  // 获取路径
+  const icon = request.files.icon.name;
+  const url = path.join(__dirname, './upload/', icon);
+  request.files.icon.mv(url, err => {
+    if (!err) {
+      //数据修改
+      studentModel.update(`id=${id}`, { name, skill, icon }, (err, results) => {
+        if (!err) {
+          response.send({
+            msg: '更新成功'
+          });
+        } else {
+          response.send({
+            msg: '参数错误，请写id参数'
+          });
+        }
+      });
+    } else {
+      response.send({
+        code: 500,
+        msg: '服务器内部错误'
+      });
+    }
+  })
+
+
 });
-// 数据查询 select
-app.get('/hero/select', (request, response) => {
-  response.send('select');
-});
+
 
 
 
