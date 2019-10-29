@@ -37,7 +37,7 @@ for (let i = 0; i < 10000; i++) {
 
   // 随机的名字
   const name = Mock.Random.cname();
-  // 随机的技能名
+  // -随机的技能名
   const skill = Mock.Random.cparagraph(3, 10);
   // 随机的图片
   const icon = Mock.Random.image('200x200', Mock.Random.color(), name);
