@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>新增</title>
+
+  <!-- Bootstrap -->
+  <link href="./lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- 自己的css -->
+  <link rel="stylesheet" href="./css/base.css">
+  <!--
+      HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
+    -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+  <div class="wrap">
+    <nav class="navbar  navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mymenu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./index.html"><img src="images/logo.png" /></a>
+        </div>
+        <!-- Indicates a dangerous or potentially negative action -->
+        <button type="button" class="btn btn-danger pull-right btn-logout">退出</button>
+        <h4 class='pull-right title'>管理员</h4>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+              <div class="row">
+                <div class="col-md-6 page-title">新增英雄</div>
+                <div class="col-md-6 text-right">
+                  当前位置：首页 &gt; 新增英雄
+                </div>
+              </div>
+            </div>
+            <div class="panel-body">
+              <!-- 表单 开始~~~！ -->
+              <form id='formAdd' action="#" method="" class="form-horizontal">
+                <div class="form-group">
+                  <label for="heroName" class="col-sm-2 control-label">姓名</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="heroName" name="name" placeholder="请输入姓名" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="skillName" class="col-sm-2 control-label">技能</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="skillName" name="skill" placeholder="请输入技能" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="heroIcon" class="col-sm-2 control-label">头像</label>
+                  <div class="col-sm-10">
+                    <!-- 预览的标签 -->
+                    <img src="./images/dogs.gif" class="preview" alt="" />
+                    <input type="file" class="file-input" id="heroIcon" name="icon" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-success btn-add">
+                      新 增
+                    </button>
+                    <button type="button" class="btn btn-danger btn-delete">
+                      取消
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="./lib/bootstrap/js/jquery-1.12.4.js"></script>
+
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+<script>
+  $(function() {
+    // 图片预览
+    $('#heroIcon').change(function() {
+      // 创建临时图片地址
+      const url = URL.createObjectURL(this.files[0]);
+      $(this).siblings('img').prop('src', url);
+    })
+
+
+    //--------------- 新增按钮  
+    $('.btn-add').click(function() {
+      // 创建formData对象那个
+      const FD = new FormData($('#formAdd')[0]);
+      $.ajax({
+        type: 'post',
+        url: URLObj.insert,
+        data: FD,
+        contentType: false,
+        processData: false,
+        success(data) {
+          alert(data.msg);
+          // 页面跳转
+          window.location.href = './index.html';
+        }
+      })
+
+    })
+  })
+</script>
+
+</html>

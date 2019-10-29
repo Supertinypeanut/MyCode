@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>英雄列表</title>
+
+  <!-- Bootstrap -->
+  <link href="./lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- 自己的css -->
+  <link rel="stylesheet" href="./css/base.css">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+  <div class="wrap">
+    <nav class="navbar  navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mymenu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src="images/logo.png" /></a>
+
+        </div>
+        <!-- Indicates a dangerous or potentially negative action -->
+        <button type="button" class="btn btn-danger pull-right btn-logout">退出</button>
+        <h4 class='pull-right title'>管理员</h4>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+              <div class="row">
+                <div class="col-md-6 page-title">英雄列表</div>
+                <div class="col-md-6 text-right">当前位置：首页</div>
+              </div>
+            </div>
+            <div class="panel-body">
+              <!-- action 不写 就是当前页面 method 不写 就是 get -->
+              <div class="row">
+                <div class="col-md-9"></div>
+                <div class="col-md-3">
+                  <a href="./add.html" class="btn btn-success pull-right">新增</a>
+                </div>
+              </div>
+
+              <table id="my-table" class="table table-bordered mp15">
+                <thead>
+                  <tr>
+                    <th width="25%">头像</th>
+                    <th width="25%">姓名</th>
+                    <th width="25%">技能</th>
+                    <th width="25%">操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- 添加内容 -->
+                </tbody>
+              </table>
+            </div>
+            <div class="panel-footer text-center"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="./lib/bootstrap/js/jquery-1.12.4.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="./lib/js/template-web.js"></script>
+  <script type="text/html" id="contain">
+    {{ each heros}}
+    <tr>
+      <td width="25%">
+        <img src="{{$value.icon}}" alt="">
+      </td>
+      <td width="25%">{{$value.name}}</td>
+      <td width="25%">{{$value.skill}}</td>
+      <td width="25%" data-id="{{$value.id}}">
+        <button type="button" class="btn btn-success">修改</button>
+        <button type="button" class="btn btn-danger">删除</button>
+      </td>
+    </tr>
+    {{ /each }}
+  </script>
+  <script>
+    $(function() {
+      // 渲染页面
+      dataLoad();
+
+
+      // ---------------修改按钮-----------------
+      $('tbody').on('click', '.btn-success', function() {
+        // 发送链接
+        window.location.href = `./edit.html?id=${$(this).parent().data('id')}`;
+      })
+
+
+      // -----------------删除按钮--事件委托-----------
+      $('tbody').on('click', '.btn-danger', function() {
+        if (confirm('确定要删除吗')) {
+          const id = $(this).parent().data('id');
+          $.ajax({
+            type: 'post',
+            url: URLObj.delete,
+            data: {
+              id
+            },
+            dataType: 'json',
+            success(data) {
+              alert(data.msg);
+              // 重新更新
+              dataLoad();
+            }
+          })
+        }
+      });
+
+
+      // ***************数据渲染函数************
+      function dataLoad() {
+        $.ajax({
+          url: URLObj.list,
+          success(backData) {
+            // console.log(backData);
+            // 渲染数据
+            const contain = template('contain', backData);
+            $('tbody').html(contain);
+          }
+        })
+      }
+
+
+    })
+  </script>
+</body>
+
+</html>

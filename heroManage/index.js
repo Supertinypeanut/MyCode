@@ -20,6 +20,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
   // default options
 app.use(fileUpload());
 
+// 静态托管
+app.use(express.static('./upload'))
+app.use(express.static('./web'))
+
+
 // -------------------创建数据库
 //2.连接数据库
 //如果数据库存在则连接，不存在则会自动创建数据库
@@ -30,6 +35,8 @@ hm.connect({
   password: 'root', //密码，没有可不填
   database: 'herodb' //数据库名称
 });
+
+
 
 //3.创建Model(表格模型：负责增删改查)
 //如果table表格存在则连接，不存在则自动创建
@@ -44,8 +51,9 @@ let studentModel = hm.model('student', {
 
 
 
-// 创建路由
 
+
+// 创建路由
 // ---------------------查询英雄列表 list
 app.get('/hero/list', (request, response) => {
   //   response.send('list');
@@ -194,8 +202,6 @@ app.post('/hero/updata', (request, response) => {
 
 
 });
-
-
 
 
 // 开启服务，监听端口3000
