@@ -25,6 +25,7 @@ app.use(express.static('./upload'))
 app.use(express.static('./web'))
 
 
+
 // -------------------创建数据库
 //2.连接数据库
 //如果数据库存在则连接，不存在则会自动创建数据库
