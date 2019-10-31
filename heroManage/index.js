@@ -1,9 +1,12 @@
+// ------------内置模块
 const path = require('path');
 // ---------------------导包
 const express = require('express')
   // 数据库
 const mysql = require('mysql')
 const hm = require('mysql-ithm')
+  // 验证码
+var svgCaptcha = require('svg-captcha');
 
 // 中间件
 //  可以解析post数据
@@ -41,13 +44,21 @@ hm.connect({
 
 //3.创建Model(表格模型：负责增删改查)
 //如果table表格存在则连接，不存在则自动创建
-let studentModel = hm.model('student', {
+// 后台英雄表格
+let heroModel = hm.model('hero', {
   // 名字叫
   name: String,
   // 技能
   skill: String,
   //    头像路径
   icon: String
+});
+// 
+let userModel = hm.model('user', {
+  // 用户名
+  name: String,
+  // 密码
+  password: String,
 });
 
 
@@ -59,7 +70,7 @@ let studentModel = hm.model('student', {
 app.get('/hero/list', (request, response) => {
   //   response.send('list');
   //查询所有数据
-  studentModel.find((err, results) => {
+  heroModel.find((err, results) => {
     if (!err) {
       response.send({
         heros: results,
@@ -74,13 +85,14 @@ app.get('/hero/list', (request, response) => {
         //   console.log(err);
     }
   });
-
 });
+
+// ********************后台接口**************
 // ---------------------查询英雄详情 info
 app.get('/hero/info', (request, response) => {
   //   response.send('info');
   // 根据id查询数据
-  studentModel.find(`id=${request.query.id}`, (err, results) => {
+  heroModel.find(`id=${request.query.id}`, (err, results) => {
     if (!err) {
       // 判断id是否有数据
       if (results.length == 0) {
@@ -110,7 +122,7 @@ app.get('/hero/info', (request, response) => {
 });
 
 
-// 数据增加 insert
+// -----------------------------数据增加 insert
 app.post('/hero/insert', (request, response) => {
   // 可以获取请求体信息
   //   console.log(request.body);
@@ -126,7 +138,7 @@ app.post('/hero/insert', (request, response) => {
   request.files.icon.mv(url, err => {
     if (!err) {
       console.log('上传成功');
-      studentModel.insert({ name, skill, icon }, (err, results) => {
+      heroModel.insert({ name, skill, icon }, (err, results) => {
         if (!err) {
           response.send({
             code: 200,
@@ -150,11 +162,11 @@ app.post('/hero/insert', (request, response) => {
   })
 
 });
-// 数据删除 delete
+// -------------------------------数据删除 delete
 app.post('/hero/delete', (request, response) => {
   if (request.body.id) {
     //4.1 删除 数据
-    studentModel.delete(`id=${request.body.id}`, (err, results) => {
+    heroModel.delete(`id=${request.body.id}`, (err, results) => {
       if (!err) {
         response.send({
           msg: '删除成功'
@@ -172,7 +184,7 @@ app.post('/hero/delete', (request, response) => {
     });
   }
 });
-// 数据更改 updata
+// ------------------------------数据更改 updata
 app.post('/hero/updata', (request, response) => {
   // 获取获取参数
   const { id, name, skill } = request.body;
@@ -182,7 +194,7 @@ app.post('/hero/updata', (request, response) => {
   request.files.icon.mv(url, err => {
     if (!err) {
       //数据修改
-      studentModel.update(`id=${id}`, { name, skill, icon }, (err, results) => {
+      heroModel.update(`id=${id}`, { name, skill, icon }, (err, results) => {
         if (!err) {
           response.send({
             msg: '更新成功'
@@ -200,9 +212,97 @@ app.post('/hero/updata', (request, response) => {
       });
     }
   })
+});
 
+// ********************前台接口**********
+// -------------------注册接口
+app.post('/user/register', (request, response) => {
+  const { name, password } = request.body;
+  userModel.find(`name=${name}`, (err, results) => {
+    if (!err) {
+      if (results.length === 0) {
+        // 给数据库增加数据
+        userModel.insert({ name, password }, (err, results) => {
+          if (!err) {
+            response.send({
+              msg: '注册成功',
+              code: 200
+            })
+          } else {
+            response.send({
+              code: 500,
+              msg: '服务器内部错误，数据库添加数据失败'
+            });
+          }
+        });
+      } else {
+        response.send({
+          msg: '该用户名已被注册'
+        })
+      }
+    } else {
+      response.send({
+        code: 500,
+        msg: '服务器内部错误，查找数据库失败'
+      });
+    }
+  });
+});
+
+
+let captchaCode = '';
+// 验证码接口
+app.get('/user/captcha', function(req, res) {
+  const captcha = svgCaptcha.create();
+  // req.session.captcha = captcha.text;
+  captchaCode = captcha.text;
+  res.type('svg');
+  res.status(200).send(captcha.data);
+  console.log(captchaCode);
 
 });
+
+
+// 登入接口
+app.post('/user/login', (request, response) => {
+  const { name, password, captcha } = request.body;
+  //通过正则判断是否一致，忽略大小写  也可以使用toLocaleLowerCase()，toLocaleUpperCase()
+  if (!RegExp(`^${captchaCode}$`, 'i').test(captcha)) {
+    response.send({
+      msg: '验证码错误'
+    });
+    return;
+  }
+  userModel.find(`name=${name}`, (err, results) => {
+    if (!err) {
+      if (results.length === 0) {
+        response.send({
+          code: 201,
+          msg: '没有该用户，请新注册'
+        });
+        return;
+      }
+      if (results[0].password == password) {
+        response.send({
+          code: 200,
+          msg: '密码正确，登入成功'
+        });
+      } else {
+        response.send({
+          code: 202,
+          msg: '密码错误'
+        });
+      }
+
+    } else {
+      response.send({
+        code: 500,
+        msg: '服务器内部错误，查找数据库失败'
+      });
+    }
+  });
+})
+
 
 
 // 开启服务，监听端口3000
