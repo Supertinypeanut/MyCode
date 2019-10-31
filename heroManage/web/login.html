@@ -85,6 +85,8 @@
   <script src="./lib/bootstrap/js/jquery-1.12.4.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+  <!-- 加密 -->
+  <script src="./lib/md5/md5.min.js"></script>
 </body>
 <script>
   $(function() {
@@ -96,15 +98,22 @@
 
     // 点击登录按钮
     $('#btnLogin').click(function() {
-      if ($('#txtName').val().trim() && $('#txtPwd').val().trim() && $('#captcha').val().trim()) {
+      const name = $('#txtName').val().trim();
+      const password = $('#txtPwd').val().trim();
+      const captcha = $('#captcha').val().trim();
+      if (name && password && captcha) {
         // 创建formdata对象
-        const FD = new FormData($('form')[0]);
+        // const FD = new FormData($('form')[0]);
         $.ajax({
           type: 'post',
           url: URLObj.login,
-          data: FD,
-          contentType: false,
-          processData: false,
+          data: {
+            name: md5(name),
+            password: md5(password),
+            captcha: captcha
+          },
+          // contentType: false,
+          // processData: false,
           success(data) {
             console.log(data);
             alert(data.msg);

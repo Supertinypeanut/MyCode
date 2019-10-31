@@ -194,7 +194,7 @@ app.post('/hero/updata', (request, response) => {
   request.files.icon.mv(url, err => {
     if (!err) {
       //数据修改
-      heroModel.update(`id=${id}`, { name, skill, icon }, (err, results) => {
+      heroModel.update(`id='${id}'`, { name, skill, icon }, (err, results) => {
         if (!err) {
           response.send({
             msg: '更新成功'
@@ -218,7 +218,9 @@ app.post('/hero/updata', (request, response) => {
 // -------------------注册接口
 app.post('/user/register', (request, response) => {
   const { name, password } = request.body;
-  userModel.find(`name=${name}`, (err, results) => {
+  console.log(name, password);
+
+  userModel.find(`name='${name}'`, (err, results) => {
     if (!err) {
       if (results.length === 0) {
         // 给数据库增加数据
@@ -273,7 +275,7 @@ app.post('/user/login', (request, response) => {
     });
     return;
   }
-  userModel.find(`name=${name}`, (err, results) => {
+  userModel.find(`name='${name}'`, (err, results) => {
     if (!err) {
       if (results.length === 0) {
         response.send({

@@ -84,6 +84,8 @@
   <script src="./lib/bootstrap/js/jquery-1.12.4.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+  <!-- 引入加密md5 -->
+  <script src="./lib/md5//md5.min.js"></script>
 </body>
 <script>
   $(function() {
@@ -102,8 +104,8 @@
           type: 'post',
           url: URLObj.register,
           data: {
-            name,
-            password
+            name: md5(name),
+            password: md5(password)
           },
           success(data) {
             console.log(data);
