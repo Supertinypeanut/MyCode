@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>登录-英雄管理</title>
+
+  <!-- Bootstrap -->
+  <link href="./lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- 自己的css -->
+  <link rel="stylesheet" href="./css/login.css">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+  <div class="wrap">
+    <nav class="navbar  navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mymenu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src="images/logo.png"></a>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="panel panel-default login-panel">
+            <div class="panel-heading">
+              <h3 class="panel-title"><b>用户登录</b></h3>
+            </div>
+            <div class="panel-body">
+              <form id='f1' action="#" method="post" class="form-horizontal">
+                <div class="form-group">
+                  <label for="userName" class="col-sm-2 control-label">用户名</label>
+                  <div class="col-sm-10">
+                    <input type="text" id="txtName" name="name" class="form-control" placeholder="请输入用户名" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="userPass" class="col-sm-2 control-label">密码</label>
+                  <div class="col-sm-10">
+                    <input type="password" id="txtPwd" name="password" class="form-control" placeholder="请输入密码" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="userPass" class="col-sm-2 control-label">验证码</label>
+                  <div class="col-sm-5">
+                    <input type="text" id="captcha" name="captcha" class="form-control" placeholder="请输入验证码" />
+                  </div>
+                  <div class="col-sm-5">
+                    <img class='vcode' style="height:34px" src="/user/captcha" alt="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button id='btnLogin' type="button" class="btn btn-success login">
+                      登陆
+                    </button>
+                    <a href="./reg.html" class="btn btn-default">注册</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="./lib/bootstrap/js/jquery-1.12.4.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+</body>
+<script>
+  $(function() {
+    //给验证码注册点击事件
+    $('.vcode').click(function() {
+      $(this).prop('src', `${URLObj.captcha}?${Date.now()}`)
+    });
+
+
+    // 点击登录按钮
+    $('#btnLogin').click(function() {
+      if ($('#txtName').val().trim() && $('#txtPwd').val().trim() && $('#captcha').val().trim()) {
+        // 创建formdata对象
+        const FD = new FormData($('form')[0]);
+        $.ajax({
+          type: 'post',
+          url: URLObj.login,
+          data: FD,
+          contentType: false,
+          processData: false,
+          success(data) {
+            console.log(data);
+            alert(data.msg);
+            if (data.code == 200) {
+              window.location.href = './index.html';
+            }
+          }
+        })
+      } else {
+        alert('内容不能为空');
+      }
+    })
+  })
+</script>
+
+</html>

@@ -11012,4 +11012,8 @@ window.URLObj = {
   insert: baseURL + '/hero/insert',
   delete: baseURL + '/hero/delete',
   updata: baseURL + '/hero/updata',
+  // 前台
+  login: baseURL + '/user/login', // 登入接口
+  captcha: baseURL + '/user/captcha', // 验证码接口
+  register: baseURL + '/user/register', // 注册接口
 }
