@@ -13,6 +13,9 @@ var svgCaptcha = require('svg-captcha');
 const bodyParser = require('body-parser')
   // 解析上传文件
 const fileUpload = require('express-fileupload');
+// session模块
+const session = require('express-session')
+const parseurl = require('parseurl')
 
 
 // -------------------创建服务
@@ -27,7 +30,26 @@ app.use(fileUpload());
 app.use(express.static('./upload'))
 app.use(express.static('./web'))
 
+// session中间件
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
 
+
+
+app.use('/hero/*', function(request, response, next) {
+  console.log(request.session);
+  if (!request.session.userInfo) {
+    response.send({
+      code: 203,
+      msg: '还没登入，去登录吧！！'
+    })
+  } else {
+    next();
+  }
+})
 
 // ---------------------创建数据库
 //2.连接数据库
@@ -285,6 +307,9 @@ app.post('/user/login', (request, response) => {
         return;
       }
       if (results[0].password == password) {
+        // 存储每个用户自己数据
+        request.session['userInfo'] = results[0];
+        console.log(request.session);
         response.send({
           code: 200,
           msg: '密码正确，登入成功'

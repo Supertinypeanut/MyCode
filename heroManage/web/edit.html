@@ -114,6 +114,11 @@
       },
       success(data) {
         console.log(data);
+        // 判断是否登入成功
+        if (data.code == 203) {
+          alert(data.msg);
+          window.location.href = './login.html';
+        }
         // 渲染数据
         $('#heroName').val(data.data.name)
         $('#skillName').val(data.data.skill)

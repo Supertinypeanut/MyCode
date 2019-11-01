@@ -139,8 +139,14 @@
         $.ajax({
           url: URLObj.list,
           success(backData) {
-            // console.log(backData);
+            console.log(backData);
             // 渲染数据
+
+            // 判断是否登入成功
+            if (backData.code == 203) {
+              alert(backData.msg);
+              window.location.href = './login.html';
+            }
             const contain = template('contain', backData);
             $('tbody').html(contain);
           }
