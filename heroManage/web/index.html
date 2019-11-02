@@ -132,7 +132,22 @@
           })
         }
       });
-
+      // 退出按钮
+      $(".btn-logout").click(function() {
+        console.log(this);
+        if (confirm("确定要退出吗")) {
+          $.ajax({
+            type: "get",
+            url: URLObj.logout,
+            success(data) {
+              alert(data.msg)
+              if (data.code == 200) {
+                window.location.href = "./login.html";
+              }
+            }
+          })
+        }
+      })
 
       // ***************数据渲染函数************
       function dataLoad() {

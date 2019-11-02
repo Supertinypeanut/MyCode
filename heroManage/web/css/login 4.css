@@ -1,0 +1,30 @@
+.login-panel {
+    margin-top: 100px;
+  }
+
+  .vCode {
+    height: 36px;
+    cursor: pointer;
+  }
+
+  .wrap {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/bg03.jpg') center bottom no-repeat;
+    overflow: auto;
+  }
+
+  .navbar-brand {
+    padding: 10px 15px;
+  }
+
+  .form-horizontal {
+    margin-top: 10px;
+  }
+
+  .form-horizontal .form-group {
+    margin-bottom: 20px;
+  }

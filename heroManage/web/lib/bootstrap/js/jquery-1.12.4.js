@@ -11016,4 +11016,5 @@ window.URLObj = {
   login: baseURL + '/user/login', // 登入接口
   captcha: baseURL + '/user/captcha', // 验证码接口
   register: baseURL + '/user/register', // 注册接口
+  logout: baseURL + '/user/logout' // 退出接口
 }
