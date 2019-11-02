@@ -330,6 +330,16 @@ app.post('/user/login', (request, response) => {
   });
 })
 
+// 退出接口
+app.get("/user/logout", (request, response) => {
+  // 删除session忠的userInfo
+  delete request.session.userInfo;
+  response.send({
+    code: 200,
+    msg: "退出成功"
+  });
+})
+
 
 
 // 开启服务，监听端口3000
