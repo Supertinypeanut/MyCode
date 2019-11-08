@@ -41,10 +41,10 @@ app.post('/getSomeJoke', (request, response) => {
   const num = request.body.num;
   // 笑话json路径
   const URL = path.join(__dirname, './port/post/jokes.json');
-  console.log(URL);
+  // console.log(URL);
 
   // 获取笑话文本
-  const jokeStr = fs.readFile(URL, 'utf-8', (err, data) => {
+  fs.readFile(URL, 'utf-8', (err, data) => {
     if (err == null) {
       // 返回的数据为文本，所以转化为对象
       const jokes = JSON.parse(data);
@@ -71,7 +71,6 @@ app.post('/getSomeJoke', (request, response) => {
       response.send('sorry，服务器没有数据！！');
     }
   });
-  //   console.log(request);
 });
 
 
