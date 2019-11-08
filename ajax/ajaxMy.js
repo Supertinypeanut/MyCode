@@ -6,8 +6,8 @@ function ajax(obj) {
       async: true,
       dataType: 'json',
       data: {},
-      json: 'callback',
-      jsonCallBack: 'jQuery' + ('1.12.2' + Math.random()).replace(/\D/g, '') + Date.now(), //随机生成回调函数名，避免get请求的缓存问题
+      jsonp: 'callback',
+      jsonpCallBack: 'jQuery' + ('1.12.2' + Math.random()).replace(/\D/g, '') + Date.now(), //随机生成回调函数名，避免get请求的缓存问题
       success(data) {
         console.log(data)
       }
