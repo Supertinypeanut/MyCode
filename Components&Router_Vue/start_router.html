@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>start_router</title>
+</head>
+
+<body>
+  <main id="app">
+    <!-- 字符串 -->
+    <router-link to="/foot/牛肉">牛肉</router-link>
+    <!-- 使用变量 -->
+    <router-link :to="URL">白菜</router-link>
+    <router-link to="/foot/山珍">山珍</router-link>
+    <!-- 使用对象 -->
+    <router-link :to="{path:'/foot/海鲜'}">海鲜</router-link>
+    <!-- 使用name 别名 -->
+    <router-link :to="{name:'path'}">山珍</router-link>
+    <!-- 多加参数 -->
+    <router-link :to="{name:'path',params:{one:'美味',two:'山珍'}}">山珍</router-link>
+    <!-- 视图容器 -->
+    <router-view></router-view>
+  </main>
+  <script src="./js/vue.js"></script>
+  <script src="./js/vue-router.js"></script>
+  <script>
+    // 创建路由
+    const router = new VueRouter({
+      routes: [
+        //静态   
+        {
+          name: "path",
+          path: "/foot/山珍",
+          component: {
+            template: `<h1>我想吃{{$route.params.one}}山珍{{$route.params.two}}</h1>`
+          }
+        },
+        //   动态
+        {
+          path: "/foot/:somes",
+          component: {
+            template: `<h1>我想吃{{$route.params.somes}}</h1>`
+          }
+        },
+        //   多参数
+        {
+          path: "/foot1/:somes",
+          component: {
+            template: `<h1>我想吃{{$route.params.somes}}</h1>`
+          }
+        }
+      ]
+    });
+    // 创建实例
+    const app = new Vue({
+      el: "#app",
+      data: {
+        URL: "/foot/白菜"
+      },
+      router
+    })
+  </script>
+</body>
+
+</html>

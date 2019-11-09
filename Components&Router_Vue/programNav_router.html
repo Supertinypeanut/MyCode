@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>programNav_router</title>
+</head>
+
+<body>
+  <main id="app">
+    <router-view></router-view>
+  </main>
+  <script src="./js/vue.js"></script>
+  <script src="./js/vue-router.js"></script>
+  <script>
+    //   创建路由表
+    const router = new VueRouter({
+      routes: [{
+          path: "",
+          component: {
+            template: `<button @click="onGoB">我是a去b</button>`
+          },
+          methods: {
+            onGoB() {
+              this.$router.replace("b");
+            }
+          }
+        }
+
+      ]
+    })
+  </script>
+</body>
+
+</html>

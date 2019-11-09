@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>components_props</title>
+</head>
+
+<body>
+  <main id="app">
+    <bejin :city="city"></bejin>
+  </main>
+  <script src="./js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        city: "北京"
+      },
+      components: {
+        bejin: {
+          props: ["city"],
+          template: `
+                <div>
+                    <a href="javascript:;" v-text="city"></a>
+                    <shanghai :city1="city1"></shanghai>
+                </div>
+                `,
+          data() {
+            return {
+              city1: "上海"
+            }
+          },
+          components: {
+            props: ["city1"],
+            shanghai: {
+              template: `
+                        <div>
+                            <a href="javascript:;" v-text="city1"></a>
+                            <shenzhen :city2="city2"></shenzhen>
+                        </div>
+                        `,
+              data() {
+                return {
+                  city2: "深圳"
+                }
+              },
+              components: {
+                props: ["city2"],
+                shenzhen: {
+                  template: `<a href="javascript:;" v-text="city2"></a>`
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

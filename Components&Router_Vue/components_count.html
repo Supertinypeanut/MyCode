@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Count</title>
+</head>
+
+<body>
+
+  <main id="app">
+    <countglobal></countglobal>
+    <countglobal></countglobal>
+    <countglobal></countglobal>
+    <countpart></countpart>
+    <countpart></countpart>
+  </main>
+  <script src="./js/vue.js"></script>
+  <script>
+    //   全局组件
+    Vue.component("countglobal", {
+      //定义组件模版
+      template: `
+        <div>
+            <button @click="onCat" :disabled="!count">-</button>
+            <span v-text="count"></span>
+            <button @click="onAdd">+</button>
+        </div>
+            `,
+      // 模版参数
+      data() {
+        return {
+          count: 0
+        }
+      },
+      // 方法
+      methods: {
+        onCat() {
+          this.count && this.count--;
+        },
+        onAdd() {
+          this.count++;
+        }
+      }
+    });
+    const app = new Vue({
+      el: "#app",
+      //   局部组件
+      components: {
+        countpart: {
+          //定义组件模版
+          template: `
+        <div>
+            <button @click="onCat" :disabled="!count">-</button>
+            <span v-text="count"></span>
+            <button @click="onAdd">+</button>
+        </div>
+            `,
+          // 模版参数
+          data() {
+            return {
+              count: 0
+            }
+          },
+          // 方法
+          methods: {
+            onCat() {
+              this.count && this.count--;
+            },
+            onAdd() {
+              this.count++;
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

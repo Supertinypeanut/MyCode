@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>parent&child_components</title>
+  <style>
+    .father {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+      background-color: #519;
+    }
+    
+    .child {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+      background-color: #4a7;
+    }
+  </style>
+</head>
+<main id="app">
+  <parent></parent>
+</main>
+
+<body>
+  <script src="./js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: "#app",
+      components: {
+        parent: {
+          template: `
+                <div class="father">我是father
+                    <child></child>
+                 </div>
+                `,
+          components: {
+            child: {
+              template: `<div class="child">我是child</div>`,
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

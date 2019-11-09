@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>redirect</title>
+</head>
+
+<body>
+  <main id="app">
+    <router-link :to="{name:'bejin'}">帝都</router-link>
+    <router-link :to="{name:'shenzhen'}">深圳</router-link>
+    <router-view></router-view>
+  </main>
+  <script src="./js/vue.js"></script>
+  <script src="./js/vue-router.js"></script>
+  <script>
+    // router表实例
+    const router = new VueRouter({
+      routes: [{
+        path: "/",
+        // 重定向
+        // redirect: "local/shenzhen",
+        component: {
+          template: `<div>我是初始化</div>`
+        }
+      }, {
+        name: "bejin",
+        path: "/local/bejin",
+        // 重定向
+        redirect: "local/shenzhen",
+        component: {
+          template: `<div>我是帝都</div>`
+        }
+      }, {
+        name: "shenzhen",
+        path: "/local/shenzhen",
+        component: {
+          template: `<div>我是深圳</div>`
+        }
+      }]
+    })
+    const app = new Vue({
+      el: "#app",
+      //   挂载路由
+      router
+    })
+  </script>
+</body>
+
+</html>
