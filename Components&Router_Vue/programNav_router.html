@@ -17,19 +17,56 @@
   <script>
     //   创建路由表
     const router = new VueRouter({
-      routes: [{
-          path: "",
-          component: {
-            template: `<button @click="onGoB">我是a去b</button>`
-          },
-          methods: {
-            onGoB() {
-              this.$router.replace("b");
+        routes: [{
+            path: "",
+            component: {
+              template: `<button @click="onGoB">我是a去b</button>`,
+              // 方法必须写在组件里面
+              methods: {
+                onGoB() {
+                  this.$router.push("/b");
+                }
+              }
+            }
+          }, {
+            path: "/b",
+            component: {
+              template: `<button @click="onGoC">我是b去c</button>`,
+              methods: {
+                onGoC() {
+                  this.$router.replace("/c");
+                }
+              }
+            }
+          }, {
+            path: "/c",
+            component: {
+              template: `<button @click="onGoD">我是c去d</button>`,
+              methods: {
+                onGoD() {
+                  this.$router.replace("/d");
+                }
+              }
+            }
+          }, {
+            path: "/d",
+            component: {
+              template: `<button @click="onGoD">我是d去a</button>`,
+              methods: {
+                onGoA() {
+                  this.$router.push("/a");
+                }
+              }
             }
           }
-        }
 
-      ]
+        ]
+      })
+      // Vue实例
+    const app = new Vue({
+      el: "#app",
+      // 绑定路由
+      router
     })
   </script>
 </body>

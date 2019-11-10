@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <main id="app">
+    <router-view></router-view>
+  </main>
+  <script src="./js/vue.js"></script>
+  <script src="./js/vue-router.js"></script>
+  <script>
+    const router = new VueRouter({
+        routes: [{
+            path: '',
+            component: {
+              template: `
+                <div>
+                    <router-link to="food">食物</router-link>
+                    <router-link to="music">音乐</router-link>
+                    <router-link to="motion">运动</router-link>
+                    <router-view></router-view>
+                </div>    
+                `,
+            },
+            children: [{
+                path: "/food",
+                component: {
+                  template: `<div>我是食物</div>`
+                }
+              }, {
+                path: "/motion",
+                component: {
+                  template: `<div>我是运动</div>`
+                }
+              }, {
+                path: "/music",
+                component: {
+                  template: `
+                        <div>
+                            <router-link to="/music/js">爵士</router-link>
+                            <router-link to="/music/rop">rop</router-link>
+                            <router-link to="/music/rock">摇滚</router-link>
+                            <router-view></router-view>
+                        </div>    
+                     `
+                },
+                children: [{
+                  path: '',
+                  component: {
+                    template: `<div>音乐默认</div>`
+                  }
+                  // redirect: "/music/js"
+                }, {
+                  path: "/music/:somes",
+                  component: {
+                    template: `
+                          <div>我喜欢{{$route.params.somes}}</div>
+                        `
+                  }
+                }]
+              }
+
+            ]
+
+          }
+
+        ]
+      })
+      // 实例vue
+    const app = new Vue({
+      el: "#app",
+      router
+    })
+  </script>
+</body>
+
+</html>
