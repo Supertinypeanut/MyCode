@@ -1,5 +1,5 @@
 <template>
-  <div>我是equip</div>
+  <div>我是喜好</div>
 </template>
 
 <script>

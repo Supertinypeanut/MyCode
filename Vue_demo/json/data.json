@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": 2,
+      "name": "金",
+      "age": 18,
+      "local": "shenzhen"
+    },
+    {
+      "id": 3,
+      "name": "金",
+      "age": 18,
+      "local": "shenzhen"
+    },
+    {
+      "name": "asxasc",
+      "age": 1211212,
+      "local": "wcec",
+      "id": 4
+    },
+    {
+      "name": "qwxqw",
+      "age": "xqwx",
+      "local": "qxwxqw",
+      "id": 5
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 <template>
-  <div>我是weapon</div>
+  <router-view></router-view>
 </template>
 
 <script>
