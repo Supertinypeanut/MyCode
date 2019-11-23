@@ -6,10 +6,11 @@ const path = require('path');
 // http服务模块
 const http = require('http');
 
+const url = require('url');
+
 
 // 创建http服务对象
 const server = http.createServer((request, response) => {
-
   // 获取浏览器端请求资源的资源路径，因为但发生get请求时可能有中文，在发送给服务器时，都有进行encodeURI转码，所以我们需要进行decodeURI解码
   let URL = path.join(__dirname, './public', decodeURI(request.url));
   // 读取路径内容，因为我们的HTML文档有声明utf-8，基本的静态资源浏览器都可以识别

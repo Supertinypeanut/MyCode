@@ -1,5 +1,10 @@
 /**
  * 模拟实现 new 关键字
+ * 基本步骤：
+ *      1、创建一个新对象
+ *      2、改变构造函数的this指向，初始化新对象（初始化属性）
+ *      3、将新对象的对象原型__proto__指向构造函数的原型对象prototype（获取方法）
+ *      4、返回新对象
 */
 
 function mockNew() {
@@ -29,9 +34,6 @@ Person.prototype = {
         console.log('我是构造函数的方法')
     }
 }
-
-// console.log(Person);
-
 
 
 const resultObj =  mockNew(Person,'我是mockNew的对象')
