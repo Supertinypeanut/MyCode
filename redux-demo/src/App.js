@@ -1,24 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {addNum, subNum, toggleTodo} from './store/action/'
 
-function App() {
+function App(props) {
+  const { store } = props
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>App</h1>
+      <div>
+        <span>{store.getState().num1}</span>
+        <button value="+" onClick={()=>store.dispatch(addNum('num1'))} >+</button>
+        <button onClick={()=>store.dispatch(subNum('num1'))} >-</button>
+        <button onClick={()=>store.dispatch(toggleTodo('num1'))} >async action +</button>
+      </div>
+      <div>
+        <span>{store.getState().num2}</span>
+        <button value="+" onClick={()=>store.dispatch(addNum('num2'))} >+</button>
+        <button onClick={()=>store.dispatch(subNum('num2'))} >-</button>
+        <button onClick={()=>store.dispatch(toggleTodo('num2'))} >async action +</button>
+      </div>
+      <div>
+        <span>{store.getState().num3}</span>
+        <button value="+" onClick={()=>store.dispatch(addNum('num3'))} >+</button>
+        <button onClick={()=>store.dispatch(subNum('num3'))} >-</button>
+        <button onClick={()=>store.dispatch(toggleTodo('num3'))} >async action +</button>
+      </div>
     </div>
   );
 }
