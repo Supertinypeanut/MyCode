@@ -11,10 +11,6 @@ const reducer = (oldState = state, action) => {
             const newState2 = Object.assign({}, oldState)
             newState2[action.params]--
             return newState2
-        // case actionType.TOGGLE_TODO:
-        //     const newState3 =  Object.assign({}, oldState)
-
-        //     return
         default:
             return oldState
     }
